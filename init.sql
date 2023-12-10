@@ -1,0 +1,3 @@
+GRANT ALL PRIVILEGES on DATABASE postgres to postgres;
+
+CREATE EXTENSION IF NOT EXISTS vector;

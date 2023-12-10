@@ -29,7 +29,7 @@ Ensure the following software is installed:
 - for Windows users: `./setup-windows.bat`
 
 4. The setup script will help to do the following:
-- Copies sample.env to .env.
+- Copies env.sample to .env.
 - Creates and activates a virtual environment.
 - Installs Python packages from requirements.txt.
 - Launches Docker containers with docker-compose up -d.
@@ -45,7 +45,7 @@ Ensure the following software is installed:
 ├── llm                 # Langchain model files and pipelines
 ├── requirements.txt    # Python package requirements
 ├── Dockerfile          # Docker configuration
-├── sample.env          # Sample environment file
+├── env.sample          # Sample environment file
 ├── api                 # FastAPI application
 └── data                # Data storage
 ```

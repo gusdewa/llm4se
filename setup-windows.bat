@@ -22,9 +22,9 @@ python --version >nul 2>&1 || (
     exit /b 1
 )
 
-:: Step 1: Copy sample.env to .env
-call :print_step "Copying sample.env to .env..."
-copy sample.env .env >nul 2>&1 || call :handle_error "Copying sample.env to .env"
+:: Step 1: Copy env.sample to .env
+call :print_step "Copying env.sample to .env..."
+copy env.sample .env >nul 2>&1 || call :handle_error "Copying env.sample to .env"
 
 :: Step 2: Create a new local venv
 call :print_step "Creating a new virtual environment..."

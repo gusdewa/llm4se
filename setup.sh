@@ -21,9 +21,9 @@ if ! command -v python3 &>/dev/null || ! python3 -c "import venv" &>/dev/null; t
     exit 1
 fi
 
-# Step 1: Copy sample.env to .env
-print_step "Copying sample.env to .env..."
-cp sample.env .env || handle_error "Copying sample.env to .env"
+# Step 1: Copy env.sample to .env
+print_step "Copying env.sample to .env..."
+cp env.sample .env || handle_error "Copying env.sample to .env"
 
 # Step 2: Create a new local venv
 print_step "Creating a new virtual environment..."

@@ -4,14 +4,19 @@ from sqlalchemy import create_engine, exc, text
 
 
 def check_db_health():
-    engine = create_engine(generate_connection_string())
-
+    username = os.getenv("DB_USERNAME")
+    host = os.getenv("DB_HOST")
+    port = os.getenv("DB_PORT")
+    db = os.getenv("DB_NAME")
+    printable_conn_str = f'postgresql://{username}:xxxx@{host}:{port}/{db}'
+    
+    print(f"Connecting to: {printable_conn_str}")
     try:
+        engine = create_engine(generate_connection_string())
         con = engine.connect()
         con.execute(text("SELECT 1"))
         return True
     except exc.SQLAlchemyError as ex:
-        print(ex)
         return False
 
 
