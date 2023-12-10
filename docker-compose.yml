@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  sveltekit-ui:
+    image: gusdewa/live-coding:v1
+    environment:
+      VITE_API_URL: http://fastapi:${APP_PORT}
+    ports:
+      - "3000:80"
+    depends_on:
+      - fastapi
+
+  fastapi:
+    build: .
+    hostname: fastapi
+    environment:
+      OPENAI_API_KEY: ${OPENAI_API_KEY}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME}
+      DEBUG_MODE: ${DEBUG_MODE}
+      APP_PORT: ${APP_PORT}
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    depends_on:
+      - db
+
+  db:
+    image: ankane/pgvector
+    hostname: db
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+volumes:
+  postgres_data:
