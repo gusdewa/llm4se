@@ -49,6 +49,19 @@ fi
 print_step "Installing requirements from requirements.txt..."
 $PIP_COMMAND install -r requirements.txt || handle_error "Installing requirements"
 
+# New Step: Unzip amazon_review.zip
+print_step "Unzipping data/amazon_review.zip..."
+if ! command -v unzip &>/dev/null; then
+    echo "unzip is not installed. Please install it before proceeding."
+    exit 1
+fi
+unzip data/amazon_review.zip -d data/ || handle_error "Unzipping amazon_review.zip"
+
+# New Step: Remove unwanted files and rename 1429_1.csv
+print_step "Cleaning up and renaming files..."
+find data/ -type f ! -name '1429_1.csv' ! -name 'amazon_review.zip' -delete || handle_error "Removing unwanted files"
+mv data/1429_1.csv data/amazon_reviews.csv || handle_error "Renaming 1429_1.csv to amazon_reviews.csv"
+
 # Check if Docker Compose is installed
 print_step "Checking for Docker Compose installation..."
 if ! command -v docker-compose &>/dev/null; then
