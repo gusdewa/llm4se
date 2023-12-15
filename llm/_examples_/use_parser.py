@@ -4,9 +4,10 @@ from llm.foundation_models.language_model import create_model
 
 def ask(query):
     prompt = create_prompt(query)
+    # output parser only support language model - not chat model
     model = create_model()
     parser = get_parser()
-
+    
     output = model.invoke(prompt)
-    should_be_a_person = parser.parse(output)
-    return should_be_a_person.json()
+    parsed_output = parser.parse(output)
+    return parsed_output.json()

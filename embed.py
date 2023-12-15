@@ -1,4 +1,7 @@
 import llm
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def embed():
     try:

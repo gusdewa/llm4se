@@ -8,8 +8,15 @@ class Person(BaseModel):
     height: float = Field(description="Height of the person in cm")
 
 
+class CoolAnswer(BaseModel):
+    answer: str = Field(description="Short answer of the query")
+    funfact: str = Field(description="Any fun fact relevant to the answer")
+    ref: str = Field(description="Relevant URL to the answer")
+    joke: str = Field(description="Any joke relevant to the answer")
+
+
 parser = PydanticOutputParser(
-    pydantic_object=Person
+    pydantic_object=CoolAnswer
 )
 
 def get_format_instructions():

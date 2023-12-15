@@ -7,6 +7,13 @@
             "request": "launch",
             "module": "main",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "Python: Embedding",
+            "type": "python",
+            "request": "launch",
+            "module": "embed",
+            "console": "integratedTerminal"
         }
     ]
 }

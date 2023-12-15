@@ -15,7 +15,7 @@ class ChatArgs(BaseModel):
 async def chat(args: ChatArgs):
     try:
         # We will be using this variable to send the response back to client app
-        result = llm.ask(args.query)
+        result = llm.ask(args.query, conversation_id=args.conversation_id)
         return Response(status_code=status.HTTP_200_OK, content=result)
     except Exception as e:
         return Response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, content=e)
