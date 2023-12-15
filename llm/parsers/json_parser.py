@@ -1,0 +1,19 @@
+from langchain_core.pydantic_v1 import BaseModel, Field, ConstrainedList
+from langchain.output_parsers.pydantic import PydanticOutputParser
+
+
+class Person(BaseModel):
+    name: str = Field(description="Name of the person to answer user query")
+    dob: str = Field(description="Date of birth of the person in YYYY-MM-DD format")
+    height: float = Field(description="Height of the person in cm")
+
+
+parser = PydanticOutputParser(
+    pydantic_object=Person
+)
+
+def get_format_instructions():
+    return parser.get_format_instructions()
+
+def get_parser():
+    return parser
