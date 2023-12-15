@@ -3,7 +3,7 @@ import urllib.parse
 from sqlalchemy import create_engine, exc, text
 
 
-def check_health():
+def check_db_health():
     engine = create_engine(generate_connection_string())
 
     try:

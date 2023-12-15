@@ -29,6 +29,10 @@ cp env.sample .env || handle_error "Copying env.sample to .env"
 print_step "Creating a new virtual environment..."
 python3 -m venv venv || handle_error "Creating virtual environment"
 
+# Modify permissions to ensure the activate script can be executed
+print_step "Modifying permissions for the virtual environment activate script..."
+chmod +x venv/bin/activate || handle_error "Modifying permissions"
+
 # Step 3: Activate the venv
 print_step "Activating the virtual environment..."
 source venv/bin/activate || handle_error "Activating virtual environment"
