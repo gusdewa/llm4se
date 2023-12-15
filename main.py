@@ -1,38 +1,37 @@
 import asyncio
 import os
-from hypercorn.asyncio import serve
-from hypercorn.config import Config
 from langchain.globals import set_debug, set_verbose
 from dotenv import load_dotenv
+import uvicorn
 
 load_dotenv()
 
 def main():
-    from api.server import app
     debug_mode = (os.getenv('DEBUG_MODE', 'False') == 'True')
 
     # Create a new event loop
     loop = asyncio.new_event_loop()
-
-    # Configure Hypercorn settings
-    cfg = Config()
-    port = os.getenv('APP_PORT', '8080')
-    cfg.bind = f"0.0.0.0:{port}"
+    asyncio.set_event_loop(loop)
 
     # Enable debug mode if DEBUG_MODE environment variable is set to 'True'
     if debug_mode:
-        cfg.loglevel = "DEBUG"
         set_debug(True)
         set_verbose(True)
-        print("Hypercorn & LangChain running in debug mode")
+        print("Uvicorn & LangChain running in debug mode")
 
-    # Create and start the server coroutine
-    server_coro = serve(app, cfg, shutdown_trigger=lambda: asyncio.Future())
-    loop.create_task(server_coro)
+    # Uvicorn settings
+    port = int(os.getenv('APP_PORT', '8080'))
+    uvicorn_config = {
+        "app": "api.server:app",  # Assuming 'app' is in the 'api.server' module
+        "host": "0.0.0.0",
+        "port": port,
+        "loop": "asyncio",
+        "reload": debug_mode,
+        "log_level": "debug" if debug_mode else "info"
+    }
 
-    # Start the event loop
-    loop.run_forever()
-
+    # Start the Uvicorn server
+    uvicorn.run(**uvicorn_config)
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,6 @@
 
 def ask(query: str):
-    response = f"MOCKED RESULT: {query}"
+    response = f"MOCKED RESULT22: {query}"
 
     return response
 
